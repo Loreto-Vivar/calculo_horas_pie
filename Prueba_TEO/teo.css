@@ -1,0 +1,106 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Capa oscura (0.5 de opacidad) + Imagen */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('teo3.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
+}
+
+.main-container {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    max-width: 560px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+select,
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.resumen {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #eee;
+}
+
+.bloque {
+    margin-top: 15px;
+    padding: 12px;
+    background: #fdfdfd;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+}
+
+.error {
+    color: #d32f2f;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}

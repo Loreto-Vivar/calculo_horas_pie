@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Horas Diferencial | Gestión NEET/NEEP</title>
+    <!-- Tipografías Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./calculo.css">
+</head>
+
+<body>
+    <main class="app-container">
+        <header>
+            <a href="../index.html" class="back-link">← Volver al Portal</a>
+            <h1>HORAS DE EDUCADORA DIFERENCIAL</h1>
+            <p class="subtitle">Gestión y Cálculo de Estudiantes NEET y NEEP</p>
+        </header>
+
+        <!-- Panel de Control -->
+        <section class="card control-panel">
+            <h2>Ingreso de Estudiantes</h2>
+
+            <div class="input-group">
+                <label for="tipoEstudiante">Seleccione el tipo de estudiante:</label>
+                <select id="tipoEstudiante">
+                    <option value="">-- Seleccione una opción --</option>
+                    <option value="NEET">NEET (Necesidad Transitoria)</option>
+                    <option value="NEEP">NEEP (Necesidad Permanente)</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" onclick="agregarEstudiante()">
+                <span class="icon">+</span> Agregar a la Matrícula
+            </button>
+
+            <div class="error" id="mensajeError"></div>
+        </section>
+
+        <!-- Resumen de Totales -->
+        <section class="card resumen">
+            <h3>Resumen de Matrícula</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="label">NEET</span>
+                    <strong id="neet">0</strong> <small>/ 5</small>
+                </div>
+                <div class="stat-item">
+                    <span class="label">NEEP</span>
+                    <strong id="neep">0</strong>
+                </div>
+                <div class="stat-item total">
+                    <span class="label">TOTAL ESTUDIANTES</span>
+                    <strong id="total">0</strong>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <!-- Horas Pedagógicas -->
+                <div class="bloque formula-blue">
+                    <h4>Horas Pedagógicas <small>(Lectivas)</small></h4>
+                    <div class="detail">
+                        <span>NEET: <strong id="pedaNeet">0</strong></span>
+                        <span>NEEP: <strong id="pedaNeep">0</strong></span>
+                    </div>
+                    <div class="total-row">
+                        <span>TOTAL HORAS</span>
+                        <strong id="pedaTotal">0</strong>
+                    </div>
+                </div>
+
+                <!-- Horas Cronológicas -->
+                <div class="bloque formula-purple">
+                    <h4>Horas Cronológicas</h4>
+                    <div class="detail">
+                        <span>NEET: <strong id="cronoNeet">0</strong></span>
+                        <span>NEEP: <strong id="cronoNeep">0</strong></span>
+                    </div>
+                    <div class="total-row">
+                        <span>TOTAL CRONOLÓGICAS</span>
+                        <strong id="cronoTotal">0</strong>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="js/calculo.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingreso de Diagnósticos</title>
+    <link rel="stylesheet" href="teo.css">
+</head>
+<body>
+<div class="main-container">
+    <a href="../index.html" class="back-link">← Volver al Portal</a>
+    <h1>TERAPEUTA OCUPACIONAL</h1>
+    <h2>Ingreso de Diagnósticos</h2>
+
+    <label>Diagnóstico:</label>
+    <select id="diagnosticoInd">
+        <option value="">-- Seleccione diagnóstico --</option>
+        <option value="DEA">DEA</option>
+        <option value="TDA">TDA</option>
+        <option value="TDAH">TDAH</option>
+        <option value="TEL">TEL</option>
+        <option value="TEA">TEA</option>
+        <option value="DIL">DIL</option>
+        <option value="DISCAPACIDAD MOTORA">DISCAPACIDAD MOTORA</option>
+        <option value="DISFASIA">DISFASIA</option>
+        <option value="OTRO">Otro</option>
+    </select>
+
+    <button onclick="agregarDiagnostico()">Agregar diagnóstico</button>
+
+    <div class="error" id="mensajeError"></div>
+
+    <div class="resumen">
+        <p>Total diagnósticos ingresados: <strong id="totalDiag">0</strong></p>
+    </div>
+
+    <div class="resumen">
+        <p>TOTAL ESTUDIANTES: <strong id="totalEstudiantes">0</strong></p>
+
+        <div class="bloque">
+            <h4>Horas Pedagógicas</h4>
+            <p>Horas por diagnóstico TEA: <strong id="pedaTEA">0</strong></p>
+            <p><strong>TOTAL HORAS PEDAGÓGICAS TEO: <span id="pedaTotal">0</span></strong></p>
+        </div>
+
+        <div class="bloque">
+            <h4>Horas Cronológicas</h4>
+            <p><strong>TOTAL: <span id="cronoTotal">0</span></strong></p>
+        </div>
+    </div>
+</div>
+
+<script src="teo.js"></script>
+
+</body>
+</html>

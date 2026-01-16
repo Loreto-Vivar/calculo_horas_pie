@@ -1,0 +1,128 @@
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    color: #1a1a1a;
+    background-color: #f0f4f8;
+    background-image: linear-gradient(rgba(240, 244, 248, 0.8), rgba(240, 244, 248, 0.8)), url('./reloj.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
+}
+
+.contenedor {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 440px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+h2 {
+    margin: 0 0 24px 0;
+    font-weight: 700;
+    font-size: 28px;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #ffffff;
+    background-image: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+    background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    font-weight: 600;
+    font-size: 18px;
+    color: #1e293b;
+    text-align: center;
+    min-height: 24px;
+    border: 1px dashed #e2e8f0;
+}
+
+hr {
+    margin: 32px 0;
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+}
