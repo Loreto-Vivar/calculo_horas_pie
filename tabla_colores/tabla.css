@@ -20,6 +20,10 @@ body {
     background-color: var(--bg-pastel);
     color: var(--text);
     margin: 0;
+    background-image: linear-gradient(rgba(241, 245, 249, 0.7), rgba(241, 245, 249, 0.7)), url('verdes.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     padding: 2rem;
     line-height: 1.6;
     min-height: 100vh;

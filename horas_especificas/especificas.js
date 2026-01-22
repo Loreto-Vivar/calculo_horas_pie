@@ -218,8 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Mostrar/Ocultar tablas según selección de JEC
 // ===============================
 
-
-    
     jecSelect.addEventListener('change', () => {
         const value = jecSelect.value;
         if (value === 'SI') {
@@ -407,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ["NOMBRE", nombre],
             ["COMUNA", comuna],
             [], // Salto de línea
-            ["REPORTE DE HORAS ESPECÍFICAS"],
+            ["GESTIÓN DE HORAS APOYO PIE"],
             ["Generado el:", new Date().toLocaleString()],
             [] // Salto de línea
         ];
@@ -420,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Registros");
-        XLSX.writeFile(wb, "Reporte_Horas_Especificas.xlsx");
+        XLSX.writeFile(wb, "Gestion_Horas_ApoYO_PIE.xlsx");
     });
 
     // --- Exportar a PDF ---
@@ -441,14 +439,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Título del PDF
         doc.setFontSize(18);
         doc.setTextColor(30, 41, 59); // var(--text-main)
-        doc.text("Gestión de Horas Específicas - Reporte", 40, 40);
+        doc.text("GESTIÓN DE HORAS APOYO PIE", 40, 40);
         
         // Información del establecimiento
         doc.setFontSize(11);
         doc.setTextColor(51, 65, 85); // Slate 700
         doc.text(`RBD: ${rbd}`, 40, 65);
-        doc.text(`Establecimiento: ${nombre}`, 40, 80);
-        doc.text(`Comuna: ${comuna}`, 40, 95);
+        doc.text(`ESTABLECIMIENTO: ${nombre}`, 40, 80);
+        doc.text(`COMUNA: ${comuna}`, 40, 95);
 
         doc.setFontSize(9);
         doc.setTextColor(100, 116, 139); // var(--text-muted)

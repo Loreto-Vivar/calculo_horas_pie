@@ -10,19 +10,32 @@
 
     const minutosHoraPedagogica = 45;
 
+    // Función para formatear horas decimales a "Xh Ym"
+    function formatearHoras(decimal) {
+    const horas = Math.floor(decimal);
+        const minutos = Math.round((decimal - horas) * 60);
+        if (minutos === 0) return `${horas}h`;
+        return `${horas}h ${minutos}m`;
+    }
+
+    let registros = [];
+
+    // Actualizar cuando cambie el JEC
+    document.getElementById("jec")?.addEventListener("change", actualizarResumen);
+
     function agregarEstudiante() {
         const tipo = document.getElementById("tipoEstudiante").value;
         const mensajeError = document.getElementById("mensajeError");
-        mensajeError.innerText = "";
+        if (mensajeError) mensajeError.innerText = "";
 
         if (!tipo) {
-            mensajeError.innerText = "Debe seleccionar un tipo de estudiante.";
+            if (mensajeError) mensajeError.innerText = "Debe seleccionar un tipo de estudiante.";
             return;
         }
 
         if (tipo === "NEET") {
             if (totalNEET >= maxNEET) {
-                mensajeError.innerText = "Máximo 5 estudiantes NEET.";
+                if (mensajeError) mensajeError.innerText = "Máximo 5 estudiantes NEET.";
                 return;
             }
             totalNEET++;
@@ -46,10 +59,10 @@
     function quitarEstudiante() {
         const tipo = document.getElementById("tipoEstudiante").value;
         const mensajeError = document.getElementById("mensajeError");
-        mensajeError.innerText = "";
+        if (mensajeError) mensajeError.innerText = "";
 
         if (!tipo) {
-            mensajeError.innerText = "Debe seleccionar un tipo para quitar.";
+            if (mensajeError) mensajeError.innerText = "Debe seleccionar un tipo para quitar.";
             return;
         }
 
@@ -57,7 +70,7 @@
             if (totalNEET > 0) {
                 totalNEET--;
             } else {
-                mensajeError.innerText = "No hay más estudiantes NEET para quitar.";
+                if (mensajeError) mensajeError.innerText = "No hay más estudiantes NEET para quitar.";
             }
         }
 
@@ -65,7 +78,7 @@
             if (totalNEEP > 0) {
                 totalNEEP--;
             } else {
-                mensajeError.innerText = "No hay más estudiantes NEEP para quitar.";
+                if (mensajeError) mensajeError.innerText = "No hay más estudiantes NEEP para quitar.";
             }
         }
 
@@ -73,8 +86,17 @@
     }
 
     function actualizarResumen() {
+        const jecSelect = document.getElementById("jec");
+        const jecValue = jecSelect ? jecSelect.value : "";
+        
+        // Bloque base de horas diferencial según la tabla (NEET 1-5 o base PIE)
+        let baseNEET = 0;
+        if (jecValue === "SI") baseNEET = 8;
+        else if (jecValue === "NO") baseNEET = 6;
+        
         // Horas pedagógicas
-        const pedaNEET = totalNEET * horasPedaPorNEET;
+        // Se asignan las horas mínimas si hay una tabla seleccionada
+        const pedaNEET = baseNEET;
         const pedaNEEP = totalNEEP * horasPedaPorNEEP;
         const pedaTotal = pedaNEET + pedaNEEP;
 
@@ -83,31 +105,27 @@
         const cronoNEEP = (pedaNEEP * minutosHoraPedagogica) / 60;
         const cronoTotal = cronoNEET + cronoNEEP;
 
-        document.getElementById("neet").innerText = totalNEET;
-        document.getElementById("neep").innerText = totalNEEP;
-        document.getElementById("total").innerText = totalNEET + totalNEEP;
+        const elNeet = document.getElementById("neet");
+        const elNeep = document.getElementById("neep");
+        const elTotal = document.getElementById("total");
 
-        document.getElementById("pedaNeet").innerText = pedaNEET.toFixed(2);
-        document.getElementById("pedaNeep").innerText = pedaNEEP.toFixed(2);
-        document.getElementById("pedaTotal").innerText = pedaTotal.toFixed(2);
+        if (elNeet) elNeet.innerText = totalNEET;
+        if (elNeep) elNeep.innerText = totalNEEP;
+        if (elTotal) elTotal.innerText = totalNEET + totalNEEP;
 
-        document.getElementById("cronoNeet").innerText = cronoNEET.toFixed(2);
-        document.getElementById("cronoNeep").innerText = cronoNEEP.toFixed(2);
-        document.getElementById("cronoTotal").innerText = cronoTotal.toFixed(2);
-    }
+        const elPedaNeet = document.getElementById("pedaNeet");
+        const elPedaNeep = document.getElementById("pedaNeep");
+        const elPedaTotal = document.getElementById("pedaTotal");
 
-    function previsualizarImagen() {
-        const input = document.getElementById('inputImagen');
-        const vistaPrevia = document.getElementById('vistaPrevia');
+        if (elPedaNeet) elPedaNeet.innerText = pedaNEET.toFixed(2);
+        if (elPedaNeep) elPedaNeep.innerText = pedaNEEP.toFixed(2);
+        if (elPedaTotal) elPedaTotal.innerText = pedaTotal.toFixed(2);
 
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
+        const elCronoNeet = document.getElementById("cronoNeet");
+        const elCronoNeep = document.getElementById("cronoNeep");
+        const elCronoTotal = document.getElementById("cronoTotal");
 
-            reader.onload = function(e) {
-                vistaPrevia.src = e.target.result;
-                vistaPrevia.style.display = 'block';
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
+        if (elCronoNeet) elCronoNeet.innerText = formatearHoras(cronoNEET);
+        if (elCronoNeep) elCronoNeep.innerText = formatearHoras(cronoNEEP);
+        if (elCronoTotal) elCronoTotal.innerText = formatearHoras(cronoTotal);
     }

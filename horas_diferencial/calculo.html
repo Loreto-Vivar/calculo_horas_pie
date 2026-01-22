@@ -15,9 +15,22 @@
     <main class="app-container">
         <header>
             <a href="../index.html" class="back-link">← Volver al Portal</a>
-            <h1>HORAS DE EDUCADORA DIFERENCIAL</h1>
+            <h1>HORAS DE PROFESORA EN EDUCACIÓN DIFERENCIAL</h1>
             <p class="subtitle">Gestión y Cálculo de Estudiantes NEET y NEEP</p>
         </header>
+
+
+    <!-- Apartado desplegable para seleccionar con JEC o sin JEC -->
+    <div class="card control-panel">
+        <div class="form-group">
+            <label for="jec">JEC</label>
+            <select id="jec" required>
+                <option value="" disabled selected>-- Seleccione --</option>
+                <option value="SI">SI</option> <!-- CON JEC -->
+                <option value="NO">NO</option> <!-- SIN JEC -->
+            </select>
+        </div>
+    </div>
 
         <!-- Panel de Control -->
         <section class="card control-panel">
@@ -97,6 +110,79 @@
 
         </section>
     </main>
+
+    <section id="infoJecSection" class="card info-section oculta">
+        <div class="table-header">
+            <h2 id="tituloInfoJec">Información de Referencia</h2>
+            <p>Valores base y cálculos según normativa</p>
+        </div>
+        <div class="table-responsive">
+            <!-- TABLA OCULTA CON JEC -->
+            <table id="tablaCONJEC" class="oculta CONJEC">
+
+                <!--Encabezado de la tabla CON JEC-->
+                <thead>
+                    <tr>
+                        <th>Cantidad de estudiantes NEEP</th>
+                        <th>Horas cronológicas diferencial</th>
+                        <th>Horas pedagógicas diferencial</th>
+                    </tr>
+                </thead>
+
+            <!--Tabla CON JEC-->
+                <tbody>
+                    <tr><td>0</td><td>6H</td><td>8</td>
+                    <tr><td>1</td><td>8H 15M</td><td>11</td>
+                    <tr><td>2</td><td>10H 30M</td><td>14</td>
+                    <tr><td>3</td><td>12H 45M</td><td>17</td>
+                    <tr><td>4</td><td>15H</td><td>20</td>
+                    <tr><td>5</td><td>17H 15M</td><td>23</td>
+                    <tr><td>6</td><td>19H 30M</td><td>26</td>
+                    <tr><td>7</td><td>21H 45M</td><td>29</td>
+                    <tr><td>8</td><td>24H</td><td>32</td>
+                    <tr><td>9</td><td>26H 15M</td><td>35</td>
+                    <tr><td>10</td><td>28H 30M</td><td>38</td>
+                    <tr><td>11</td><td>30H 45M</td><td>41</td>
+                    <tr><td>12</td><td>33H</td><td>44</td>
+                    <tr><td>13</td><td>35H 15M</td><td>47</td>
+                    <tr><td>14</td><td>37H 30M</td><td>50</td>
+                    <tr><td>15</td><td>39H 45M</td><td>53</td>
+                </tbody>
+            </table>
+
+            <!-- TABLA OCULTA SIN JEC -->
+            <table id="tablaSINJEC" class="oculta SINJEC">
+                <thead>
+                    <tr>
+                        <th>Cantidad de estudiantes NEEP</th>
+                        <th>Horas cronológicas diferencial</th>
+                        <th>Horas pedagógicas diferencial</th>
+                    </tr>
+                </thead>
+
+            <!--Tabla SIN JEC-->
+                <tbody>
+                    <tr><td>0</td><td>4H 30M</td><td>6</td>
+                    <tr><td>1</td><td>6H 45M</td><td>9</td>
+                    <tr><td>2</td><td>9H</td><td>12</td>
+                    <tr><td>3</td><td>11H 15M</td><td>15</td>
+                    <tr><td>4</td><td>13H 30M</td><td>18</td>
+                    <tr><td>5</td><td>15H 45M</td><td>21</td>
+                    <tr><td>6</td><td>18H</td><td>24</td>
+                    <tr><td>7</td><td>20H 15M</td><td>27</td>
+                    <tr><td>8</td><td>22H 30M</td><td>30</td>
+                    <tr><td>9</td><td>24H 45M</td><td>33</td>
+                    <tr><td>10</td><td>27H</td><td>36</td>
+                    <tr><td>11</td><td>29H 15M</td><td>39</td>
+                    <tr><td>12</td><td>31H 30M</td><td>42</td>
+                    <tr><td>13</td><td>33H 45M</td><td>45</td>
+                    <tr><td>14</td><td>36H</td><td>48</td>
+                    <tr><td>15</td><td>38H 15M</td><td>51</td>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
 
     <script src="js/calculo.js"></script>
 </body>

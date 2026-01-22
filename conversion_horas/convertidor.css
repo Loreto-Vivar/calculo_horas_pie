@@ -3,7 +3,7 @@ body {
     font-size: 16px;
     color: #1a1a1a;
     background-color: #f0f4f8;
-    background-image: linear-gradient(rgba(240, 244, 248, 0.8), rgba(240, 244, 248, 0.8)), url('./reloj.png');
+    background-image: linear-gradient(rgba(240, 244, 248, 0.8), rgba(240, 244, 248, 0.8)), url('./puntos.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -13,13 +13,11 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    margin: 0;
+    margin: 0;  
     padding: 24px;
     line-height: 1.5;
 }
 
-<<<<<<< HEAD
-=======
 .back-link {
     display: inline-block;
     margin-bottom: 20px;
@@ -34,7 +32,6 @@ body {
     transform: translateX(-5px);
 }
 
->>>>>>> 4439424d4bf332991980da5573d0d7d9f889a90b
 .contenedor {
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
