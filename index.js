@@ -51,3 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('Premium Dashboard: Extensibility and Pastel Engine initialized.');
 });
+
+/**
+ * Verifica la clave de acceso para el área restringida.
+ * En una aplicación real, esto se validaría contra un servidor.
+ */
+function verificarClave() {
+    const claveCorrecta = "2024"; // Clave de ejemplo
+    const ingreso = prompt("Ingrese la clave de administración para acceder al módulo mensajes y archivos:");
+
+    if (ingreso === claveCorrecta) {
+        window.location.href = "mensaje_archivos/archivos.html";
+    } else if (ingreso !== null) {
+        alert("Clave incorrecta. Acceso denegado.");
+    }
+}

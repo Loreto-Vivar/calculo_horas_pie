@@ -273,7 +273,25 @@ header p {
 #card-colores .icon-wrapper { background: white; color: #dd6b20; }
 #card-colores .btn-arrow svg { color: #dd6b20; }
 
+/* Protected Card Theme */
+#card-protegido { 
+    background: linear-gradient(135deg, white 0%, #fff5f5 100%); 
+    cursor: pointer;
+}
+#card-protegido .card-tag { 
+    background: #e11d48; 
+    color: white; 
+}
+#card-protegido .icon-wrapper { 
+    background: white; 
+    color: #e11d48; 
+}
+#card-protegido .btn-arrow svg { 
+    color: #e11d48; 
+}
+
 /* Footer Styles */
+
 footer {
     margin-top: 10rem;
     padding: 5rem 0;
