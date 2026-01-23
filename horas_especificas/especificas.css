@@ -27,6 +27,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Background Decor */
@@ -65,9 +68,10 @@ body {
 
 .contenedor {
     width: 98%;
-    max-width: 100%;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 0 1rem;
+    flex-shrink: 0;
 }
 
 header {
@@ -316,4 +320,21 @@ tr:hover td {
 
 #tablaTotales strong {
     color: var(--primary-dark);
+}
+
+/* Pie de página */
+footer {
+    width: 100%;
+    margin-top: auto;
+    padding: 40px 20px;
+    background: linear-gradient(transparent, rgba(15, 23, 42, 0.05));
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
