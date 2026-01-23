@@ -12,32 +12,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const escuelas = [
         {
             rbd: "7872-7",
-            nombre: "ESCUELA DIFUSIÓN ARTÍSTICA LOS ULMOS",
+            nombre: "ESCUELA DE DIFUSIÓN ARTÍSTICA LOS ULMOS",
             comuna: "LOS MUERMOS",
         },
         {
             rbd: "7874-3",
-            nombre: "CAÑITAS",
+            nombre: "ESCUELACAÑITAS",
             comuna: "LOS MUERMOS",
         },
         {
             rbd: "7896-4",
-            nombre: "ESTAQUILLA",
+            nombre: "ESCUELA ESTAQUILLA",
             comuna: "LOS MUERMOS",
         },
         {
             rbd: "7897-2",
-            nombre: "MANUEL GATICA ARRIAGADA",
+            nombre: "ESCUELA MANUEL GATICA ARRIAGADA",
             comuna: "LOS MUERMOS",
         },
         {
             rbd: "7898-0",
-            nombre: "EL MELI",
+            nombre: "ESCUELA EL MELI",
             comuna: "LOS MUERMOS",
         },
         {
             rbd: "7905-7",
-            nombre: "PARAGUAY CHICO",
+            nombre: "ESCUELA PARAGUAY CHICO",
             comuna: "LOS MUERMOS",
         },
         {
@@ -47,18 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             rbd: "22309",
-            nombre: "COLEGIO INGLÉS MABEL CONDEMARÍN",
+            nombre: "COLEGIO INGLÉS MABEL CONDEMARIN",
             comuna: "LOS MUERMOS",
         },
         //Puerto Varas
         {
             rbd: "7725-9",
-            nombre: "ESCUELA COLONIA RIO SUR",
+            nombre: "ESCUELA COLONIA RÍO SUR",
             comuna: "PUERTO VARAS",
         },
         {
             rbd: "7722-4",
-            nombre: "ESCUELA ROSITA NOVARO",
+            nombre: "COLEGIO ROSITA NOVARO DE NOVARO",
             comuna: "PUERTO VARAS",
         },
         {
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             rbd: "7959-6",
-            nombre: "ESCUELA GABRIEL MISTRAL",
+            nombre: "ESCUELA GABRIELA MISTRAL",
             comuna: "LLANQUIHUE",
         },
         {
