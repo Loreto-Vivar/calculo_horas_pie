@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Crear fila
         const fila = document.createElement('tr');
         fila.dataset.id = registro.id;
-        
+
         fila.innerHTML = `
             <td><strong>${curso}</strong></td>
             <td>${jec}</td>
@@ -436,6 +436,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const nombre = document.getElementById("escuelaNombre").value || "N/A";
         const comuna = document.getElementById("comunaOculta").value || "N/A";
 
+        // Monitoriza si algo intenta mostrar la sección y la vuelve a ocultar ENTRADA DE PRUEBA
+        const section = document.getElementById('infoJecSection');
+
+const observer = new MutationObserver(((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class" || mutation.attributeName === "style") {
+            if (section.style.display !== 'none') {
+                section.style.setProperty('display', 'none', 'important');
+            }
+        }
+    });
+}));
+
+observer.observe(section, { attributes: true });
         // Título del PDF
         doc.setFontSize(18);
         doc.setTextColor(30, 41, 59); // var(--text-main)
@@ -472,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 textColor: [15, 23, 42],
                 fontStyle: 'bold'
             },
+    
             // Excluimos la columna de "Acciones"
             columns: [
                 { header: 'Cursos', dataKey: 0 },
