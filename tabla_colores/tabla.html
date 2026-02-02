@@ -30,15 +30,16 @@
             <div class="control-item">
                 <label for="buscadorHC">Jornada Semanal (HC):</label>
                 <div class="input-grupo">
-                    <input type="number" id="buscadorHC" placeholder="Ej: 44" disabled>
+                    <input type="number" id="buscadorHC" placeholder="Ej: 44" disabled min="0" step="1">
                     <button type="button" class="btn-limpiar" id="limpiarHC" title="Limpiar">✕</button>
+                    <div class="resultado" id="resultado2"></div>
                 </div>
             </div>
 
             <div class="control-item">
                 <label for="buscadorHA">Horas Lectivas (HA):</label>
                 <div class="input-grupo">
-                    <input type="number" id="buscadorHA" placeholder="Ej: 43" disabled>
+                    <input type="number" id="buscadorHA" placeholder="Ej: 43" disabled min="0" step="1">
                     <button type="button" class="btn-limpiar" id="limpiarHA" title="Limpiar">✕</button>
                 </div>
             </div>

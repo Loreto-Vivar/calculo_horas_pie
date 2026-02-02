@@ -24,6 +24,16 @@ function filtrarTabla(valor, columnaIndex) {
         "[data-tabla]:not([style*='display: none'])"
     );
 
+    // Validación: Evitar letras, vacíos y números negativos
+    const numValor = parseFloat(valor);
+    if (valor !== "" && (isNaN(numValor) || numValor < 0)) {
+        const resultadoError = document.getElementById('resultado2');
+        if (resultadoError) {
+            resultadoError.innerHTML = '<span style="color: #d9534f;">⚠️ Ingresa un número positivo.</span>';
+        }
+        return;
+    }
+
     if (valor !== "") {
         document.body.classList.add("buscando");
     } else {

@@ -279,9 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Obtener valores
         const curso = document.getElementById('curso').value;
         const jec = document.getElementById('jec').value;
-        const neet = parseInt(document.getElementById('neet').value) || 0;
-        const neep = parseInt(document.getElementById('neep').value) || 0;
-        const neepExcepcionales = parseInt(document.getElementById('neepExcepcionales').value) || 0;
+        // Obtener valores y asegurar que sean positivos
+        const neet = Math.max(0, parseInt(document.getElementById('neet').value) || 0);
+        const neep = Math.max(0, parseInt(document.getElementById('neep').value) || 0);
+        const neepExcepcionales = Math.max(0, parseInt(document.getElementById('neepExcepcionales').value) || 0);
 
         // Validación extra para NEET (Máximo 5)
         if (neet > 5) {
@@ -436,20 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const nombre = document.getElementById("escuelaNombre").value || "N/A";
         const comuna = document.getElementById("comunaOculta").value || "N/A";
 
-        // Monitoriza si algo intenta mostrar la sección y la vuelve a ocultar ENTRADA DE PRUEBA
-        const section = document.getElementById('infoJecSection');
-
-const observer = new MutationObserver(((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class" || mutation.attributeName === "style") {
-            if (section.style.display !== 'none') {
-                section.style.setProperty('display', 'none', 'important');
-            }
-        }
-    });
-}));
-
-observer.observe(section, { attributes: true });
         // Título del PDF
         doc.setFontSize(18);
         doc.setTextColor(30, 41, 59); // var(--text-main)
