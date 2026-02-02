@@ -29,40 +29,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Extensibility: Real-time Search Logic
     if (searchInput) {
+        const noResults = document.getElementById('no-results');
+        
         searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let visibleCards = 0;
 
             cards.forEach(card => {
                 const title = card.querySelector('h2').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
                 const tag = card.querySelector('.card-tag').textContent.toLowerCase();
 
+                // Clear any existing timeouts to avoid conflicts
+                if (card.dataset.timeoutId) {
+                    clearTimeout(parseInt(card.dataset.timeoutId));
+                }
+
                 if (title.includes(searchTerm) || description.includes(searchTerm) || tag.includes(searchTerm)) {
                     card.style.display = 'flex';
-                    // Re-trigger animation feel
-                    setTimeout(() => card.style.opacity = '1', 10);
+                    // Small delay to ensure display: flex is applied before opacity transition
+                    const timeoutId = setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
+                    card.dataset.timeoutId = timeoutId;
+                    visibleCards++;
                 } else {
                     card.style.opacity = '0';
-                    setTimeout(() => card.style.display = 'none', 300);
+                    card.style.transform = 'translateY(10px)';
+                    const timeoutId = setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                    card.dataset.timeoutId = timeoutId;
                 }
             });
+
+            // Show/hide "no results" message
+            if (visibleCards === 0 && searchTerm !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
         });
     }
 
     console.log('Premium Dashboard: Extensibility and Pastel Engine initialized.');
 });
 
-/**
- * Verifica la clave de acceso para el área restringida.
- * En una aplicación real, esto se validaría contra un servidor.
- */
-function verificarClave() {
-    const claveCorrecta = "2024"; // Clave de ejemplo
-    const ingreso = prompt("Ingrese la clave de administración para acceder al módulo mensajes y archivos:");
-
-    if (ingreso === claveCorrecta) {
-        window.location.href = "mensaje_archivos/archivos.html";
-    } else if (ingreso !== null) {
-        alert("Clave incorrecta. Acceso denegado.");
-    }
-}

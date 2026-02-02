@@ -33,7 +33,7 @@ function pedagogicasACronologicas() {
     if (isNaN(valor) || valor < 0) {
         document.getElementById('resultado2').innerHTML = 
             '<span style="color: #d9534f;">⚠️ Por favor ingresa un número mayor a 0.</span>';
-        return; 
+        return;
     }
 
     // Cálculo de minutos totales (Cada hora pedagógica vale 45 min)
