@@ -191,8 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const dependenciaOculta = document.getElementById("dependenciaOculta");
 
     if (inputRBD) {
-        inputRBD.addEventListener("input", () => {
-            const valor = inputRBD.value.trim();
+        inputRBD.addEventListener("input", (e) => {
+            // Eliminar cualquier carácter que no sea número o guion
+            const valorLimpio = e.target.value.replace(/[^0-9-]/g, '');
+            e.target.value = valorLimpio;
+
+            const valor = valorLimpio.trim();
             const encontrada = escuelas.find(
                 esc => esc.rbd.toLowerCase() === valor.toLowerCase()
             );
@@ -220,19 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     jecSelect.addEventListener('change', () => {
         const value = jecSelect.value;
-        if (value === 'SI') {
-            infoJecSection.classList.remove('oculta');
-            tablaCONJEC.classList.remove('oculta');
-            tablaSINJEC.classList.add('oculta');
-        } else if (value === 'NO') {
-            infoJecSection.classList.remove('oculta');
-            tablaSINJEC.classList.remove('oculta');
-            tablaCONJEC.classList.add('oculta');
-        } else {
-            infoJecSection.classList.add('oculta');
-            tablaCONJEC.classList.add('oculta');
-            tablaSINJEC.classList.add('oculta');
-        }
+        // La sección de información de referencia se mantiene oculta permanentemente
+        // según requerimiento del usuario.
+        infoJecSection.classList.add('oculta');
+        tablaCONJEC.classList.add('oculta');
+        tablaSINJEC.classList.add('oculta');
     });
 
     // Función para formatear horas decimales a "Xh Ym"
@@ -366,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tablaDatos.appendChild(fila);
         actualizarTotales();
 
-        // Limpiar formulario y ocultar tablas
+        // Limpiar formulario y mantener tablas ocultas
         formulario.reset();
         infoJecSection.classList.add('oculta');
         tablaCONJEC.classList.add('oculta');
