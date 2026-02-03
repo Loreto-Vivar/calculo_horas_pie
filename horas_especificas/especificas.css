@@ -303,7 +303,9 @@ tr:hover td {
 }
 
 .oculta {
-    display: none;
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .row-totals {

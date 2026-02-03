@@ -37,6 +37,18 @@ function filtrarTabla(valor, columnaIndex, inputId) {
         "[data-tabla]:not([style*='display: none'])"
     );
 
+    const resultadoError = document.getElementById('resultado2');
+    if (resultadoError) resultadoError.innerHTML = '';
+
+    // Validación: Evitar letras, vacíos y números negativos
+    const numValor = parseFloat(valor);
+    if (valor !== "" && (isNaN(numValor) || numValor < 0)) {
+        if (resultadoError) {
+            resultadoError.innerHTML = '<span style="color: #d9534f; font-size: 0.8rem; margin-top: 5px; display: block;">⚠️ Ingresa un número positivo.</span>';
+        }
+        return;
+    }
+
     // Manejar visibilidad del botón de limpiar
     const btnLimpiar = inputId === "buscadorHC" ? btnLimpiarHC : btnLimpiarHA;
     if (valor !== "") {
@@ -59,7 +71,7 @@ function filtrarTabla(valor, columnaIndex, inputId) {
 
     if (valor !== "") {
         document.body.classList.add("buscando");
-        
+
         let mensajeNoResultados = contenedorActivo.querySelector(".no-resultados");
         if (encontrados === 0) {
             if (!mensajeNoResultados) {
@@ -77,6 +89,7 @@ function filtrarTabla(valor, columnaIndex, inputId) {
         if (mensajeNoResultados) mensajeNoResultados.remove();
     }
 }
+
 
 buscadorHC.addEventListener("input", () => {
     buscadorHA.value = ""; 

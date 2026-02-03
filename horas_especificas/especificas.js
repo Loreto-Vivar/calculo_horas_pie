@@ -275,9 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Obtener valores
         const curso = document.getElementById('curso').value;
         const jec = document.getElementById('jec').value;
-        const neet = parseInt(document.getElementById('neet').value) || 0;
-        const neep = parseInt(document.getElementById('neep').value) || 0;
-        const neepExcepcionales = parseInt(document.getElementById('neepExcepcionales').value) || 0;
+        // Obtener valores y asegurar que sean positivos
+        const neet = Math.max(0, parseInt(document.getElementById('neet').value) || 0);
+        const neep = Math.max(0, parseInt(document.getElementById('neep').value) || 0);
+        const neepExcepcionales = Math.max(0, parseInt(document.getElementById('neepExcepcionales').value) || 0);
 
         // Validación extra para NEET (Máximo 5)
         if (neet > 5) {
@@ -323,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Crear fila
         const fila = document.createElement('tr');
         fila.dataset.id = registro.id;
-        
+
         fila.innerHTML = `
             <td><strong>${curso}</strong></td>
             <td>${jec}</td>
@@ -468,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 textColor: [15, 23, 42],
                 fontStyle: 'bold'
             },
+    
             // Excluimos la columna de "Acciones"
             columns: [
                 { header: 'Cursos', dataKey: 0 },
