@@ -189,6 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const rbdOculto = document.getElementById("rbdOculto");
     const comunaOculta = document.getElementById("comunaOculta");
     const dependenciaOculta = document.getElementById("dependenciaOculta");
+    const seccionRegistro = document.getElementById("seccionRegistro");
+    const seccionTabla = document.getElementById("seccionTabla");
 
     if (inputRBD) {
         inputRBD.addEventListener("input", (e) => {
@@ -206,11 +208,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 rbdOculto.value = encontrada.rbd || "";
                 comunaOculta.value = encontrada.comuna || "";
                 dependenciaOculta.value = encontrada.dependencia || "";
+                
+                // Desbloquear secciones
+                seccionRegistro.classList.remove("bloqueado");
+                seccionTabla.classList.remove("bloqueado");
             } else {
                 inputNombre.value = "";
                 rbdOculto.value = "";
                 comunaOculta.value = "";
                 dependenciaOculta.value = "";
+                
+                // Bloquear secciones
+                seccionRegistro.classList.add("bloqueado");
+                seccionTabla.classList.add("bloqueado");
             }
         });
     }
