@@ -11,38 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===============================
     const escuelas = [
         {
-            rbd: "7872-7",
-            nombre: "ESCUELA DE DIFUSIÓN ARTÍSTICA LOS ULMOS",
+            rbd: "7872",
+            nombre: "COLEGIO BICENTENARIO DE DIFUSIÓN ARTÍSTICA LOS ULMOS",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "7874-3",
-            nombre: "ESCUELACAÑITAS",
+            rbd: "7874",
+            nombre: "ESCUELA RURAL CAÑITAS",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "7896-4",
-            nombre: "ESCUELA ESTAQUILLA",
+            rbd: "7896",
+            nombre: "ESCUELA RURAL ESTAQUILLA",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "7897-2",
-            nombre: "ESCUELA MANUEL GATICA ARRIAGADA",
+            rbd: "7897",
+            nombre: "ESCUELA RURAL MANUEL GATICA ARRIAGADA",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "7898-0",
-            nombre: "ESCUELA EL MELI",
+            rbd: "7898",
+            nombre: "ESCUELA RURAL EL MELI",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "7905-7",
-            nombre: "ESCUELA PARAGUAY CHICO",
+            rbd: "7905",
+            nombre: "ESCUELA RURAL PARAGUAY CHICO",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "22012-4",
-            nombre: "LICEO PUNTA DE RIELES",
+            rbd: "22012",
+            nombre: "LICEO BICENTENARIO PUNTA DE RIELES",
             comuna: "LOS MUERMOS",
         },
         {
@@ -52,130 +52,130 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         //Puerto Varas
         {
-            rbd: "7725-9",
-            nombre: "ESCUELA COLONIA RÍO SUR",
+            rbd: "7725",
+            nombre: "ESCUELA RURAL COLONIA RÍO SUR",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "7722-4",
+            rbd: "7722",
             nombre: "COLEGIO ROSITA NOVARO DE NOVARO",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "7740-2",
-            nombre: "ESCUELA EPSON",
+            rbd: "7740",
+            nombre: "ESCUELA RURAL EPSON ENSENADA",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "7724-0",
-            nombre: "ESCUELA NUEVA BRAUNAU (CNB ARTÍSTICO)",
+            rbd: "7724",
+            nombre: "COLEGIO NUEVA BRAUNAU",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "7723-2",
+            rbd: "7723",
             nombre: "ESCUELA GRUPO ESCOLAR",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "22519-3",
+            rbd: "22519",
             nombre: "COLEGIO MIRADOR DEL LAGO",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "7720-8",
+            rbd: "7720",
             nombre: "LICEO PEDRO AGUIRRE CERDA",
             comuna: "PUERTO VARAS",
         },
         //Fresia
         {
-            rbd: "7924-3",
-            nombre: "ESCUELA SAN ANDRÉS DE TEGUALDA",
+            rbd: "7924",
+            nombre: "ESCUELA RURAL SAN ANDRÉS",
             comuna: "FRESIA",
         },
         {
-            rbd: "7929-4",
-            nombre: "ESCUELA AGRICOLA HUEMPELEO",
+            rbd: "7929",
+            nombre: "ESCUELA BASICA AGRICOLA HUEMPELEO",
             comuna: "FRESIA",
         },
         {
-            rbd: "7941-3",
+            rbd: "7941",
             nombre: "LICEO CARLOS IBAÑEZ DEL CAMPO",
             comuna: "FRESIA",
         },
         {
-            rbd: "22105-8",
+            rbd: "22105",
             nombre: "ESCUELA BÁSICA FRESIA",
             comuna: "FRESIA",
         },
         //Frutillar
         {
-            rbd: "7973-1",
-            nombre: "LICEO INDUSTRIAL CHILENO ALEMÁN (LICHAF)",
+            rbd: "7973",
+            nombre: "LICEO INDUSTRIAL CHILENO ALEMÁN ",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "7975-8",
+            rbd: "7975",
             nombre: "ESCUELA ARTURO ALESSANDRI PALMA",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "7976-6",
+            rbd: "7976",
             nombre: "ESCUELA BERNARDO PHILIPPI",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "7977-4",
+            rbd: "7977",
             nombre: "ESCUELA RURAL LOS LINARES DE CASMA",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "7982-0",
+            rbd: "7982",
             nombre: "ESCUELA RURAL PARAGUAY",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "11548-7",
+            rbd: "11548",
             nombre: "ESCUELA CLAUDIO MATTE",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "22022-1",
+            rbd: "22022",
             nombre: "LICEO IGNACIO CARRERA PINTO",
             comuna: "FRUTILLAR",
         },
         {
-            rbd: "22493-6",
+            rbd: "22493",
             nombre: "ESCUELA VICENTE PÉREZ ROSALES",
             comuna: "FRUTILLAR",
         },
         // Llanquihue
         {
-            rbd: "7956-1",
+            rbd: "7956",
             nombre: "LICEO POLITÉCNICO HOLANDA",
             comuna: "LLANQUIHUE",
         },
         {
-            rbd: "7958-8",
+            rbd: "7958",
             nombre: "ESCUELA INÉS GALLARDO ALVARADO",
             comuna: "LLANQUIHUE",
         },
         {
-            rbd: "7959-6",
+            rbd: "7959",
             nombre: "ESCUELA GABRIELA MISTRAL",
             comuna: "LLANQUIHUE",
         },
         {
-            rbd: "7961-8",
+            rbd: "7961",
             nombre: "ESCUELA RURAL LOS PELLINES",
             comuna: "LLANQUIHUE",
         },
         {
-            rbd: "7962-6",
+            rbd: "7962",
             nombre: "ESCUELA RURAL LONCOTORO",
             comuna: "LLANQUIHUE",
         },
         {
-            rbd: "7967-7",
+            rbd: "7967",
             nombre: "ESCUELA RURAL COLEGUAL",
             comuna: "LLANQUIHUE",
         }
@@ -499,4 +499,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         doc.save(`Reporte_Horas_${rbd.replace(/[^a-z0-9]/gi, '_')}.pdf`);
     });
+
+    // --- Borrar Todo ---
+    const btnClearAll = document.getElementById('btnClearAll');
+    if (btnClearAll) {
+        btnClearAll.addEventListener('click', () => {
+            if (registros.length === 0) {
+                alert('No hay registros para borrar');
+                return;
+            }
+
+            if (confirm('¿Estás seguro/a de borrar todos los registros?')) {
+                registros = [];
+                tablaDatos.innerHTML = '';
+                actualizarTotales();
+            }
+        });
+    }
 });
