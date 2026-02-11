@@ -26,12 +26,12 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 2.5rem 1rem;
 
     /* Fondo con Imagen */
-    background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('niños.png');
+    background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('figuras.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -41,6 +41,7 @@ body {
     width: 100%;
     max-width: 500px;
     animation: fadeIn 0.8s ease-out;
+    flex: 1;
 }
 
 header {
@@ -61,6 +62,22 @@ h1 {
     font-weight: 300;
     opacity: 0.9;
     font-size: 1rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
 }
 
 .card {
@@ -277,4 +294,30 @@ input[type="file"] {
 /* Animaciones para los números cuando cambian */
 strong {
     transition: all 0.3s ease;
+}
+
+/* Pie de Página */
+footer {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 3rem;
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.footer-content a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
 }
