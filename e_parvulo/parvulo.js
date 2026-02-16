@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
             nombre: "CORAZON DE ANGEL",
             comuna: "FRESIA",
         },
+        {
+            rbd:"35133",
+            nombre:"EL RINCON DEL SABER",
+            comuna:"FRESIA",
+        },
 
     //FRUTILLAR
         {
@@ -38,13 +43,23 @@ document.addEventListener('DOMContentLoaded', () => {
     //LOS MUERMOS
         {
             rbd: "35137",
-            nombre: "DUENDECITOS",
+            nombre: "DUENDECITOS/CUMBRES ALTAS",
             comuna: "LOS MUERMOS",
         },
         {
-            rbd: "35140-7",
+            rbd: "35140",
             nombre: "VENTANITAS DE COLORES",
             comuna: "LOS MUERMOS",
+        },
+        {
+            rbd:"35138",
+            nombre:"SEMILLITAS DE AMOR",
+            comuna:"LOS MUERMOS",
+        },
+        {
+            rbd:"35139",
+            nombre:"BROTECITOS DE MELI",
+            comuna:"LOS MUERMOS",
         },
     
     //PUERTO VARAS
@@ -54,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
             comuna: "PUERTO VARAS",
         },
         {
-            rbd: "35154-7",
+            rbd: "35154",
             nombre: "MURTITAS",
             comuna: "PUERTO VARAS",
         },
         {
-            rbd:"35155-5",
+            rbd:"35155",
             nombre:"MI NUEVA AVENTURA",
             comuna:"PUERTO VARAS",
         },
