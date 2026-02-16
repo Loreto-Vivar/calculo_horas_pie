@@ -1,6 +1,6 @@
 :root {
-    --primary: #099bfc;
-    --primary-dark: #6366f1;
+    --primary: #f7960d;
+    --primary-dark: #f1a563;
     --bg-light: #f8fafc;
     --card-bg: #ffffff;
     --text-main: #1e293b;
@@ -23,7 +23,7 @@ body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-light);
     color: var(--text-main);
-    background-image: linear-gradient(rgba(240, 244, 248, 0.8), rgba(240, 244, 248, 0.8)), url('./circulos.png');
+    background-image: linear-gradient(rgba(240, 244, 248, 0.8), rgba(240, 244, 248, 0.8)), url('./naranja.png');
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
@@ -266,8 +266,8 @@ td {
 .cell-neet { color: #059669; font-weight: 600; }
 .cell-neep { color: #b45309; font-weight: 600; }
 .cell-total { color: var(--primary-dark); font-weight: 700; font-size: 1.1rem; }
-.cell-total-postulados { color: #4f46e5; font-weight: 700; font-size: 1.1rem; }
-.cell-lectivas { background-color: #f0f9ff; color: #0369a1; font-weight: 700; }
+.cell-total-postulados { color: #e7c77a; font-weight: 700; font-size: 1.1rem; }
+.cell-lectivas { background-color: #f0f9ff; color: #ebb129; font-weight: 700; }
 
 tr:last-child td {
     border-bottom: none;
@@ -331,19 +331,43 @@ tr:hover td {
 }
 
 .row-totals {
-    background-color: #f1f5f9;
-    border-top: 3px solid var(--primary);
+    background-color: #f8fafc;
 }
 
 .row-totals td {
-    font-weight: 800;
-    color: var(--text-main);
-    border-top: 2px solid var(--border-color);
-    background: #f8fafc;
+    padding: 1.25rem 1rem;
+    border-top: 3px solid var(--primary);
+    vertical-align: middle;
+    
 }
 
-#tablaTotales strong {
-    color: var(--primary-dark);
+.total-label {
+    text-align: right;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.total-value {
+    background-color: var(--primary) !important;
+    color: white !important;
+    font-size: 1.5rem;
+    font-weight: 800;
+    min-width: 80px;
+    border-top: 3px solid var(--primary-dark) !important;
+}
+
+#totalPárvulos {
+    display: block;
+    animation: scaleIn 0.3s ease-out;
+    
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Pie de página */

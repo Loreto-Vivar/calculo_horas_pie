@@ -1,0 +1,361 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const formulario = document.getElementById('formulario');
+    const tablaDatos = document.getElementById('tablaDatos');
+    const diagnosticoSelect = document.getElementById('diagnostico');
+    const infoJecSection = document.getElementById('infoJecSection');
+    const tablaCONJEC = document.getElementById('tablaCONJEC');
+    const tablaSINJEC = document.getElementById('tablaSINJEC');
+
+    // ===============================
+    // DATOS OCULTOS DE ESTABLECIMIENTOS
+    // ===============================
+
+    //FRESIA
+    const escuelas = [
+        {
+            rbd: "35132",
+            nombre: "CORAZON DE ANGEL",
+            comuna: "FRESIA",
+        },
+
+    //FRUTILLAR
+        {
+            rbd: "35134",
+            nombre: "FRUTILLITA",
+            comuna: "FRUTILLAR",
+        },
+        {
+            rbd: "35135",
+            nombre: "PEQUEÑOS ANGELITOS",
+            comuna: "FRUTILLAR",
+        },
+    //LLANQUIHUE
+        {
+            rbd: "35145",
+            nombre: "MI PEQUEÑO PARAÍSO",
+            comuna: "LLANQUIHUE",
+        },
+    //LOS MUERMOS
+        {
+            rbd: "35137",
+            nombre: "DUENDECITOS",
+            comuna: "LOS MUERMOS",
+        },
+        {
+            rbd: "35140-7",
+            nombre: "VENTANITAS DE COLORES",
+            comuna: "LOS MUERMOS",
+        },
+    
+    //PUERTO VARAS
+        {
+            rbd: "35153",
+            nombre: "ARCOIRIS",
+            comuna: "PUERTO VARAS",
+        },
+        {
+            rbd: "35154-7",
+            nombre: "MURTITAS",
+            comuna: "PUERTO VARAS",
+        },
+        {
+            rbd:"35155-5",
+            nombre:"MI NUEVA AVENTURA",
+            comuna:"PUERTO VARAS",
+        },
+        {
+            rbd:"35156",
+            nombre:"SALA CUNA PRINCESA LICARAYEN",
+            comuna:"PUERTO VARAS",
+        },
+
+
+        
+    ];
+
+    // ===============================
+    // VINCULAR RBD CON ESTABLECIMIENTO
+    // ===============================
+    const inputRBD = document.getElementById("RBD");
+    const inputNombre = document.getElementById("escuelaNombre");
+    const rbdOculto = document.getElementById("rbdOculto");
+    const comunaOculta = document.getElementById("comunaOculta");
+    const dependenciaOculta = document.getElementById("dependenciaOculta");
+    const seccionRegistro = document.getElementById("seccionRegistro");
+    const seccionTabla = document.getElementById("seccionTabla");
+
+    if (inputRBD) {
+        inputRBD.addEventListener("input", (e) => {
+            const valorLimpio = e.target.value.replace(/[^0-9-]/g, '');
+            e.target.value = valorLimpio;
+
+            const valor = valorLimpio.trim();
+            const encontrada = escuelas.find(
+                esc => esc.rbd.toLowerCase() === valor.toLowerCase()
+            );
+
+            if (encontrada) {
+                inputNombre.value = encontrada.nombre;
+                rbdOculto.value = encontrada.rbd || "";
+                comunaOculta.value = encontrada.comuna || "";
+                dependenciaOculta.value = encontrada.dependencia || "";
+                
+                seccionRegistro.classList.remove("bloqueado");
+                seccionTabla.classList.remove("bloqueado");
+            } else {
+                inputNombre.value = "";
+                rbdOculto.value = "";
+                comunaOculta.value = "";
+                dependenciaOculta.value = "";
+                seccionRegistro.classList.add("bloqueado");
+                seccionTabla.classList.add("bloqueado");
+            }
+        });
+    }
+
+    // ==========================================
+    // VALIDACIÓN: SOLO LETRAS EN CAMPOS DE NOMBRE
+    // ==========================================
+    const soloLetras = (e) => {
+        // Permitimos letras (incluyendo tildes y ñ) y espacios
+        const regex = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
+        e.target.value = e.target.value.replace(regex, "");
+    };
+
+    const camposSoloLetras = [
+        "encargadoNivel",
+        "escuelaNombre",
+        "profesionalRegistra",
+        "nombreParvulo",
+        "apellidoParvulo",
+        "profesionalAtiende",
+        "redesAsistencia"
+    ];
+
+    camposSoloLetras.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener("input", soloLetras);
+        }
+    });
+
+    // Validación para RUN (Solo números, guion y K)
+    const inputRun = document.getElementById("runParvulo");
+    if (inputRun) {
+        inputRun.addEventListener("input", (e) => {
+            const regex = /[^0-9kK-]/g;
+            e.target.value = e.target.value.replace(regex, "");
+        });
+    }
+
+    let registros = [];
+
+    function actualizarTotales() {
+        const totalRegistros = registros.length;
+        const totalElem = document.getElementById('totalPárvulos');
+        if (totalElem) {
+            totalElem.textContent = totalRegistros;
+            // Reiniciar animación para que el número "salte" al cambiar
+            totalElem.style.animation = 'none';
+            totalElem.offsetHeight; // trigger reflow
+            totalElem.style.animation = null;
+        }
+    }
+
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const registro = {
+            id: Date.now(),
+            run: document.getElementById('runParvulo').value,
+            nombre: document.getElementById('nombreParvulo').value,
+            apellido: document.getElementById('apellidoParvulo').value,
+            fechaNac: document.getElementById('fechaNacimiento').value,
+            sexo: document.getElementById('sexo').value,
+            diagnostico: document.getElementById('diagnostico').value,
+            diagConfirmado: document.getElementById('diagnosticoEspecialista').value,
+            profesionalAtiende: document.getElementById('profesionalAtiende').value,
+            redes: document.getElementById('redesAsistencia').value || "No registra",
+            observaciones: document.getElementById('observaciones').value || "-"
+        };
+
+        registros.push(registro);
+
+        const fila = document.createElement('tr');
+        fila.dataset.id = registro.id;
+
+        fila.innerHTML = `
+            <td>${registro.run}</td>
+            <td>${registro.nombre}</td>
+            <td>${registro.apellido}</td>
+            <td>${registro.fechaNac}</td>
+            <td>${registro.sexo}</td>
+            <td>${registro.diagnostico}</td>
+            <td>${registro.diagConfirmado}</td>
+            <td>${registro.profesionalAtiende}</td>
+            <td>${registro.redes}</td>
+            <td>${registro.observaciones}</td>
+            <td>
+                <button class="btn-delete" title="Eliminar registro">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                </button>
+            </td>
+        `;
+
+        fila.querySelector('.btn-delete').addEventListener('click', () => {
+            if(confirm('¿Estás seguro de eliminar este registro?')) {
+                registros = registros.filter(r => r.id !== registro.id);
+                fila.style.opacity = '0';
+                fila.style.transform = 'translateX(20px)';
+                fila.style.transition = 'all 0.3s';
+                setTimeout(() => {
+                    fila.remove();
+                    actualizarTotales();
+                }, 300);
+            }
+        });
+
+        tablaDatos.appendChild(fila);
+        actualizarTotales();
+
+        formulario.reset();
+        document.getElementById('runParvulo').focus();
+    });
+
+    // --- Exportar a Excel ---
+    document.getElementById('btnExportExcel').addEventListener('click', () => {
+        if (registros.length === 0) {
+            alert('No hay datos para exportar');
+            return;
+        }
+        
+        const rbd = document.getElementById("rbdOculto").value || document.getElementById("RBD").value || "N/A";
+        const nombre = document.getElementById("escuelaNombre").value || "N/A";
+        const comuna = document.getElementById("comunaOculta").value || "N/A";
+        const nombreEncargadoNivel = document.getElementById("encargadoNivel").value || "N/A";
+        const nombreEncargado = document.getElementById("profesionalRegistra").value || "N/A";
+
+        const tablaOriginal = document.getElementById('tablaMaestra');
+        const tablaClonada = tablaOriginal.cloneNode(true);
+        
+        const filas = tablaClonada.querySelectorAll('tr');
+        filas.forEach(fila => {
+            if (fila.cells.length > 0) {
+                fila.deleteCell(-1);
+            }
+        });
+
+        const data = [
+            ["INFORMACIÓN DEL ESTABLECIMIENTO"],
+            ["RBD", rbd],
+            ["NOMBRE", nombre],
+            ["COMUNA", comuna],
+            ["ENCARGADO/A DEL NIVEL", nombreEncargadoNivel],
+            ["ENCARGADO/A DE REGISTRO", nombreEncargado],
+            ["TOTAL ESTUDIANTES", registros.length],
+            [],
+            ["REGISTRO DE ESTUDIANTES - EDUCACIÓN PARVULARIA"],
+            ["Generado el:", new Date().toLocaleString()],
+            []
+        ];
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        XLSX.utils.sheet_add_dom(ws, tablaClonada, { origin: "A11" });
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Registros");
+        
+        // Agregar fila de total al final
+        const lastRow = 11 + registros.length + 1;
+        XLSX.utils.sheet_add_aoa(ws, [["", "", "", "", "", "", "", "", "TOTAL PÁRVULOS", registros.length]], { origin: `A${lastRow}` });
+
+        XLSX.writeFile(wb, "Registro_Parvulo.xlsx");
+    });
+
+    // --- Exportar a PDF ---
+    document.getElementById('btnExportPDF').addEventListener('click', () => {
+        if (registros.length === 0) {
+            alert('No hay datos para exportar');
+            return;
+        }
+        
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('l', 'pt', 'a4');
+
+        const rbd = document.getElementById("rbdOculto").value || document.getElementById("RBD").value || "N/A";
+        const nombre = document.getElementById("escuelaNombre").value || "N/A";
+        const comuna = document.getElementById("comunaOculta").value || "N/A";
+        const nombreEncargadoNivel = document.getElementById("encargadoNivel").value || "N/A";
+        const nombreEncargado = document.getElementById("profesionalRegistra").value || "N/A";
+
+        doc.setFontSize(18);
+        doc.setTextColor(30, 41, 59);
+        doc.text("REGISTRO DE EDUCACIÓN PARVULARIA", 40, 40);
+        
+        doc.setFontSize(11);
+        doc.setTextColor(51, 65, 85);
+        doc.text(`RBD: ${rbd}`, 40, 65);
+        doc.text(`ESTABLECIMIENTO: ${nombre}`, 40, 80);
+        doc.text(`COMUNA: ${comuna}`, 40, 95);
+        doc.text(`ENCARGADO/A DEL NIVEL: ${nombreEncargadoNivel}`, 40, 110);
+        doc.text(`ENCARGADO/A DE REGISTRO: ${nombreEncargado}`, 40, 125);
+
+        doc.setFontSize(9);
+        doc.setTextColor(100, 116, 139);
+        doc.text("Generado el: " + new Date().toLocaleString(), 40, 140);
+
+        doc.autoTable({
+            html: '#tablaMaestra',
+            startY: 160,
+            styles: { 
+                fontSize: 7,
+                cellPadding: 4,
+                valign: 'middle',
+                halign: 'center',
+                font: 'helvetica'
+            },
+            headStyles: { 
+                fillColor: [247, 150, 13],
+                textColor: 255,
+                fontStyle: 'bold'
+            },
+            footStyles: {
+                fillColor: [247, 150, 13],
+                textColor: 255,
+                fontStyle: 'bold',
+                halign: 'right'
+            },
+            columns: [
+                { header: 'RUN', dataKey: 0 },
+                { header: 'Nombres', dataKey: 1 },
+                { header: 'Apellidos', dataKey: 2 },
+                { header: 'F. Nac', dataKey: 3 },
+                { header: 'Sexo', dataKey: 4 },
+                { header: 'Diag.', dataKey: 5 },
+                { header: 'Conf.', dataKey: 6 },
+                { header: 'Prof.', dataKey: 7 },
+                { header: 'Redes', dataKey: 8 },
+                { header: 'Obs.', dataKey: 9 }
+            ]
+        });
+
+        doc.save(`Reporte_Parvulo_${rbd.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+    });
+
+    // --- Borrar Todo ---
+    const btnClearAll = document.getElementById('btnClearAll');
+    if (btnClearAll) {
+        btnClearAll.addEventListener('click', () => {
+            if (registros.length === 0) {
+                alert('No hay registros para borrar');
+                return;
+            }
+
+            if (confirm('¿Estás seguro/a de borrar todos los registros?')) {
+                registros = [];
+                tablaDatos.innerHTML = '';
+                actualizarTotales();
+            }
+        });
+    }
+});

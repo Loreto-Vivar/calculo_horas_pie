@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Educación Parvularia | Estudio CFT</title>
+    <link rel="stylesheet" href="parvulo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+    <div class="background-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="contenedor">
+        <a href="../index.html" class="back-link" style="text-decoration: none; color: var(--primary); font-weight: 600; display: block; margin-bottom: 2rem;">← Volver al Portal</a>
+
+        <header>
+            <h1>Registro de Educación Parvularia</h1>
+            <p class="subtitle">Necesidades Educativas Especiales de educación parvularia</p>
+        </header>
+
+        <!--Ingreso de los datos del colegio-->
+        <section class="card form-section">
+            <h2>Antecedentes de la Unidad Educativa</h2>
+            <div class="input-grid">
+                <div class="form-group">
+                    <label for="RBD">RBD de la Unidad Educativa</label>
+                    <input type="text" id="RBD" placeholder="Ej: XXXX" inputmode="numeric" required>
+                </div>
+                <div class="form-group">
+                    <label for="escuelaNombre">Nombre de la Unidad Educativa</label>
+                    <input type="text" id="escuelaNombre" placeholder="Se completa automáticamente" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nivelEducativo">Nivel Educativo del Párvulo</label>
+                    <select id="nivelEducativo" required>
+                        <option value="" disabled selected>-- Seleccione --</option>
+                        <option value="Sala Cuna Heterogénea">Sala Cuna Heterogénea</option>
+                        <option value="Sala Cuna Mayor">Sala Cuna Mayor</option>
+                        <option value="Nivel Medio Heterogéneo">Nivel Medio Heterogéneo</option>
+                        <option value="Nivel Medio Mayor">Nivel Medio Mayor</option>
+                        <option value="Nivel Transición">Nivel Transición</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="encargadoNivel">Profesional Encargado/a del Nivel</label>
+                    <input type="text" id="encargadoNivel" placeholder="Ingrese el nombre del profesional" required>
+                </div>
+                <div class="form-group">
+                    <label for="profesionalRegistra">Profesional que Registra</label>
+                    <input type="text" id="profesionalRegistra" placeholder="Ingrese el nombre del profesional" required>
+                </div>
+            </div>
+
+            <input type="hidden" id="rbdOculto">
+            <input type="hidden" id="comunaOculta">
+            <input type="hidden" id="dependenciaOculta">
+
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-color);">
+
+            <!-- Ingreso de los datos de los estudiantes PIE-->
+            <div id="seccionRegistro" class="bloqueado">
+                <h2>Registrar Información</h2>
+                <form id="formulario">
+                    <div class="input-grid">
+                        <div class="form-group">
+                            <label for="runParvulo">RUN Párvulo</label>
+                            <input type="text" id="runParvulo" placeholder="Ingrese el RUN" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombreParvulo">Nombres</label>
+                            <input type="text" id="nombreParvulo" placeholder="Nombres del párvulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidoParvulo">Apellidos</label>
+                            <input type="text" id="apellidoParvulo" placeholder="Apellidos del párvulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="fechaNacimiento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo</label>
+                            <select id="sexo" required>
+                                <option value="" disabled selected>-- Seleccione --</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Masculino">Masculino</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="diagnostico">Diagnóstico </label>
+                            <select id="diagnostico" required>
+                                <option value="" disabled selected>-- Seleccione --</option>
+                                <option value="Trastorno del Espectro Autista">Trastorno del Espectro Autista</option>
+                                <option value="Trastorno del Específico del Lenguaje">Trastorno del Específico del Lenguaje</option>
+                                <option value="TDA">TDA</option>
+                                <option value="TDAH">TDAH</option>
+                                <option value="Prematuro">Prematuro</option>
+                                <option value="Discapacidad Visual">Discapacidad Visual</option>
+                                <option value="Discapacidad Motora">Discapacidad Motora</option>
+                                <option value="Discapacidad Intelectual">Discapacidad Intelectual</option>
+                                <option value="Discapacidad Auditiva">Discapacidad Auditiva</option>
+                                <option value="Trastorno de Integración Sensorial">Trastorno de Integración Sensorial</option>
+                                <option value="Trastorno de la Comunicación">Trastorno de la Comunicación</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="diagnosticoEspecialista">¿Diagnóstico confirmado?</label>
+                            <select id="diagnosticoEspecialista" required>
+                                <option value="" disabled selected>-- Seleccione --</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="profesionalAtiende">Especialista que atiende</label>
+                            <input type="text" id="profesionalAtiende" placeholder="Especialidad/Cargo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="redesAsistencia">Redes a las que asiste</label>
+                            <input type="text" id="redesAsistencia" placeholder="Ej: Teletón, CESFAM, Hospital, etc.">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="observaciones">Observaciones</label>
+                            <input type="text" id="observaciones" placeholder="Ingrese observaciones relevantes">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <span class="icon">+</span> Agregar al Registro
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Registros Actuales -->
+        <section id="seccionTabla" class="card table-section bloqueado">
+            <div class="table-header">
+                <div>
+                    <h2>Registros Actuales</h2>
+                    <p>Resumen detallado por Unidad Educativa</p>
+                </div>
+                <div class="export-buttons">
+                    <button id="btnExportPDF" class="btn-export btn-pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        PDF
+                    </button>
+                    <button id="btnExportExcel" class="btn-export btn-excel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Excel
+                    </button>
+                    <button id="btnClearAll" class="btn-export btn-clear">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        Borrar Todo
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="tablaMaestra">
+                    <thead>
+                        <tr>
+                            <th>RUN Párvulo</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Sexo</th>
+                            <th>Diagnóstico</th>
+                            <th>Diagnóstico Confirmado</th>
+                            <th>Profesional</th>
+                            <th>Redes de Apoyo</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDatos">
+                        <!-- Filas generadas dinámicamente -->
+                    </tbody>
+                    <tfoot id="tablaTotales">
+                        <tr class="row-totals">
+                            <td colspan="10" class="total-label">
+                                <span>TOTAL PÁRVULOS REGISTRADOS</span>
+                            </td>
+                            <td class="total-value">
+                                <span id="totalPárvulos">0</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+    </div>
+
+ 
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Herramientas de Gestión Educativa. Desarrollado por Loreto Vivar Azócar. Todos los derechos reservados. Contacto: <a href="mailto:lore.yazocarv@gmail.com">lore.yazocarv@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script src="parvulo.js"></script>
+</body>
+</html>
