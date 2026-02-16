@@ -30,6 +30,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 0; /* Eliminamos padding-bottom para que el footer gestione su espacio */
 }
 
 /* Background Decor */
@@ -349,12 +350,20 @@ tr:hover td {
 /* Pie de página */
 footer {
     width: 100%;
-    margin-top: 5rem;
-    padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.9);
+    margin-top: auto; /* Empuja el footer al final si el contenido es corto */
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     text-align: center;
     border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .footer-content p {
