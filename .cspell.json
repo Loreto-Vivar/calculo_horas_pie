@@ -1,0 +1,25 @@
+{
+    "version": "0.2",
+    "language": "en,es",
+    "words": [
+        "Discapacidad",
+        "Nivel",
+        "Ventanitas",
+        "detallado",
+        "parvulo",
+        "parvularia",
+        "Azócar",
+        "Vivar",
+        "CFT",
+        "RBD",
+        "Teletón",
+        "CESFAM"
+    ],
+    "dictionaries": [
+        "spanish"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        ".git"
+    ]
+}

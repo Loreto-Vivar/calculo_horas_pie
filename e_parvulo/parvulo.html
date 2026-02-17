@@ -26,6 +26,12 @@
         </header>
 
         <!--Ingreso de los datos del colegio-->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+            <button id="btnClearAll" class="btn-export btn-clear">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                Limpiar Antecedentes
+            </button>
+        </div>
         <section class="card form-section">
             <h2>Antecedentes de la Unidad Educativa</h2>
             <div class="input-grid">
@@ -42,10 +48,8 @@
                     <select id="nivelEducativo" required>
                         <option value="" disabled selected>-- Seleccione --</option>
                         <option value="Sala Cuna Heterogénea">Sala Cuna Heterogénea</option>
-                        <option value="Sala Cuna Mayor">Sala Cuna Mayor</option>
-                        <option value="Nivel Medio Heterogéneo">Nivel Medio Heterogéneo</option>
-                        <option value="Nivel Medio Mayor">Nivel Medio Mayor</option>
-                        <option value="Nivel Transición">Nivel Transición</option>
+                        <option value="Nivel Transición">Nivel Medio Mixto</option>
+                        <option value="Nivel Transición">Medio Transición Heterogénea</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -98,7 +102,7 @@
                             <select id="diagnostico" required>
                                 <option value="" disabled selected>-- Seleccione --</option>
                                 <option value="Trastorno del Espectro Autista">Trastorno del Espectro Autista</option>
-                                <option value="Trastorno del Específico del Lenguaje">Trastorno del Específico del Lenguaje</option>
+                                <option value="Trastorno Específico del Lenguaje">Trastorno Específico del Lenguaje</option>
                                 <option value="TDA">TDA</option>
                                 <option value="TDAH">TDAH</option>
                                 <option value="Prematuro">Prematuro</option>
@@ -155,10 +159,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         Excel
                     </button>
-                    <button id="btnClearAll" class="btn-export btn-clear">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        Borrar Todo
-                    </button>
+
                 </div>
             </div>
             <div class="table-responsive">
@@ -183,12 +184,13 @@
                     </tbody>
                     <tfoot id="tablaTotales">
                         <tr class="row-totals">
-                            <td colspan="10" class="total-label">
+                            <td colspan="9" class="total-label">
                                 <span>TOTAL PÁRVULOS REGISTRADOS</span>
                             </td>
                             <td class="total-value">
                                 <span id="totalPárvulos">0</span>
                             </td>
+                            <td></td> <!-- Espacio para columna Acciones -->
                         </tr>
                     </tfoot>
                 </table>
@@ -196,7 +198,90 @@
         </section>
     </div>
 
- 
+
+    <!--Sección de filtrado-->
+    <section id="seccionFiltro" class="card table-section bloqueado">
+        <div class="filter-toolbar">
+            <h2>Filtros de la Tabla</h2>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Confirmado</label>
+                    <select id="filtroDiagConfirmado">
+                        <option value="">Todos</option>
+                        <option value="SI">Sí</option>
+                        <option value="NO">No</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Sexo</label>
+                    <select id="filtroSexo">
+                        <option value="">Todos</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+
+                <button id="btnLimpiarFiltros" class="btn-clear-filters" title="Limpiar todos los filtros">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-header"> 
+            <div>
+                <h2>Resultados del Filtrado</h2>
+                <p>Estudiantes que coinciden con los criterios</p>
+            </div>
+            <div class="export-buttons">
+                <button id="btnExportPDFFiltro" class="btn-export btn-pdf">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    PDF (Filtrado)
+                </button>
+                <button id="btnExportExcelFiltro" class="btn-export btn-excel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Excel (Filtrado)
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tablaMaestraFiltro">
+                <thead>
+                    <tr>
+                        <th>RUN Párvulo</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Sexo</th>
+                        <th>Diagnóstico</th>
+                        <th>Diagnóstico Confirmado</th>
+                        <th>Profesional</th>
+                        <th>Redes de Apoyo</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatosFiltro">
+                    <!-- Filas generadas dinámicamente -->
+                </tbody>
+                <tfoot>
+                    <tr class="row-totals">
+                        <td colspan="9" class="total-label">
+                            <span>TOTAL FILTRADOS</span>
+                        </td>
+                        <td class="total-value">
+                            <span id="totalPárvulosFiltro">0</span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+
+
+    </div>
 
     <footer>
         <div class="footer-content">
