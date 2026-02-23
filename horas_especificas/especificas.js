@@ -393,39 +393,92 @@ document.addEventListener('DOMContentLoaded', () => {
         const nombre = document.getElementById("escuelaNombre").value || "N/A";
         const comuna = document.getElementById("comunaOculta").value || "N/A";
 
-        // Clonación de tabla original
-        const tablaOriginal = document.getElementById('tablaMaestra');
-        const tablaClonada = tablaOriginal.cloneNode(true);
-        
-        // Eliminar columna de acciones de la tabla clonada
-        const filas = tablaClonada.querySelectorAll('tr');
-        filas.forEach(fila => {
-            if (fila.cells.length > 0) {
-                fila.deleteCell(-1);
-            }
+        // 1. Crear tabla temporal con bordes CSS
+        const table = document.createElement('table');
+        const cellStyle = 'border: 1px solid black; padding: 5px; text-align: center;';
+        const headerStyle = 'border: 1px solid black; padding: 5px; background-color: #818cf8; color: white; font-weight: bold; text-align: center;';
+        const titleStyle = 'border: 1px solid black; padding: 10px; font-size: 16pt; font-weight: bold; text-align: center;';
+
+        let html = `
+            <tr><td colspan="12" style="${titleStyle}">GESTIÓN DE HORAS APOYO PIE</td></tr>
+            <tr><td colspan="12"></td></tr>
+            <tr><td colspan="12" style="background-color: #f1f5f9; font-weight: bold; border: 1px solid black;">INFORMACIÓN DEL ESTABLECIMIENTO</td></tr>
+            <tr>
+                <td style="${cellStyle} font-weight: bold;">RBD:</td><td colspan="3" style="${cellStyle}">${rbd}</td>
+                <td style="${cellStyle} font-weight: bold;">NOMBRE:</td><td colspan="3" style="${cellStyle}">${nombre}</td>
+                <td style="${cellStyle} font-weight: bold;">COMUNA:</td><td colspan="3" style="${cellStyle}">${comuna}</td>
+            </tr>
+            <tr><td colspan="12"></td></tr>
+            <tr>
+                <th style="${headerStyle}">Cursos</th>
+                <th style="${headerStyle}">JEC</th>
+                <th style="${headerStyle}">NEET</th>
+                <th style="${headerStyle}">NEEP</th>
+                <th style="${headerStyle}">NEEP Exc.</th>
+                <th style="${headerStyle}">Tot. NEEP</th>
+                <th style="${headerStyle}">Postulados</th>
+                <th style="${headerStyle}">Horas Apoyo</th>
+                <th style="${headerStyle}">Crono Dif</th>
+                <th style="${headerStyle}">Lect Dif</th>
+                <th style="${headerStyle}">Crono Prof</th>
+                <th style="${headerStyle}">Lect Prof</th>
+            </tr>
+        `;
+
+        // Añadir registros de la tabla
+        registros.forEach(reg => {
+            html += `
+                <tr>
+                    <td style="${cellStyle}">${reg.curso}</td>
+                    <td style="${cellStyle}">${reg.jec}</td>
+                    <td style="${cellStyle}">${reg.neet}</td>
+                    <td style="${cellStyle}">${reg.neep}</td>
+                    <td style="${cellStyle}">${reg.neepExcepcionales}</td>
+                    <td style="${cellStyle}">${reg.totalNeep}</td>
+                    <td style="${cellStyle}">${reg.totalPostulados}</td>
+                    <td style="${cellStyle}">${reg.totalHorasApoyo}h</td>
+                    <td style="${cellStyle}">${formatearHoras(reg.horasCronoDif)}</td>
+                    <td style="${cellStyle}">${reg.horasLectivasDif}h</td>
+                    <td style="${cellStyle}">${formatearHoras(reg.horasCronoProf)}</td>
+                    <td style="${cellStyle}">${reg.horasPedagProf}</td>
+                </tr>
+            `;
         });
 
-        // Crear una nueva hoja de cálculo empezando por la info del establecimiento
-        const data = [
-            ["INFORMACIÓN DEL ESTABLECIMIENTO"],
-            ["RBD", rbd],
-            ["NOMBRE", nombre],
-            ["COMUNA", comuna],
-            [], // Salto de línea
-            ["GESTIÓN DE HORAS APOYO PIE"],
-            ["Generado el:", new Date().toLocaleString()],
-            [] // Salto de línea
+        // Fila de Totales
+        const totalNEET = registros.reduce((s, r) => s + r.neet, 0);
+        const totalNEEP = registros.reduce((s, r) => s + r.neep, 0);
+        const totalNEEPEx = registros.reduce((s, r) => s + r.neepExcepcionales, 0);
+        const totalTNEEP = registros.reduce((s, r) => s + r.totalNeep, 0);
+        const totalPostulados = registros.reduce((s, r) => s + r.totalPostulados, 0);
+        const totalApoyo = registros.reduce((s, r) => s + r.totalHorasApoyo, 0);
+
+        html += `
+            <tr style="background-color: #f1f5f9; font-weight: bold;">
+                <td colspan="2" style="${cellStyle}">TOTALES</td>
+                <td style="${cellStyle}">${totalNEET}</td>
+                <td style="${cellStyle}">${totalNEEP}</td>
+                <td style="${cellStyle}">${totalNEEPEx}</td>
+                <td style="${cellStyle}">${totalTNEEP}</td>
+                <td style="${cellStyle}">${totalPostulados}</td>
+                <td style="${cellStyle}">${totalApoyo}h</td>
+                <td colspan="4" style="${cellStyle}">Cálculos detallados en reporte adjunto</td>
+            </tr>
+        `;
+
+        table.innerHTML = html;
+        const ws = XLSX.utils.table_to_sheet(table);
+
+        // Estilos de columnas
+        ws['!cols'] = [
+            {wch: 15}, {wch: 8}, {wch: 8}, {wch: 8}, {wch: 10}, 
+            {wch: 10}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 10}, 
+            {wch: 12}, {wch: 12}
         ];
-
-        // Convertir la información de encabezado a worksheet
-        const ws = XLSX.utils.aoa_to_sheet(data);
-
-        // Agregar la tabla de datos a la misma hoja, empezando después del encabezado
-        XLSX.utils.sheet_add_dom(ws, tablaClonada, { origin: "A10" });
 
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Registros");
-        XLSX.writeFile(wb, "Gestion_Horas_ApoYO_PIE.xlsx");
+        XLSX.writeFile(wb, `Reporte_Horas_${rbd}.xlsx`);
     });
 
     // --- Exportar a PDF ---

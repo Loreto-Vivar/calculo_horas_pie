@@ -157,25 +157,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Validación para RUN (Solo números, guion y K, máximo 10 caracteres)
+    // Validación para RUN (Solo números, guion automático después de 8 dígitos y K)
     const inputRun = document.getElementById("runParvulo");
     if (inputRun) {
         inputRun.addEventListener("input", (e) => {
-            let valor = e.target.value.replace(/[^0-9kK-]/g, "");
+            // Eliminar caracteres no válidos y convertir a mayúsculas
+            let valor = e.target.value.replace(/[^0-9kK]/g, "").toUpperCase();
             
-            // Limitar a 10 caracteres
-            if (valor.length > 10) {
-                valor = valor.slice(0, 10);
+            // Limitar a un máximo de 9 caracteres base (8 cuerpo + 1 DV)
+            if (valor.length > 9) {
+                valor = valor.slice(0, 9);
             }
+
+            // Colocar guion automático después de los 8 dígitos
+            if (valor.length > 8) {
+                valor = valor.slice(0, 8) + "-" + valor.slice(8);
+            }
+            
             e.target.value = valor;
         });
 
-        // Formateo automático al perder el foco (opcional pero recomendado)
+        // Formateo adicional al perder el foco (ayuda con RUTs de 7 dígitos)
         inputRun.addEventListener("blur", (e) => {
-            let valor = e.target.value.trim();
-            if (valor.length > 1 && !valor.includes("-")) {
-                // Insertar guion antes del último carácter si no lo tiene
-                e.target.value = valor.slice(0, -1) + "-" + valor.slice(-1), !importante;
+            let valor = e.target.value.replace(/[^0-9kK]/g, "").toUpperCase();
+            if (valor.length > 1 && !e.target.value.includes("-")) {
+                // Insertar guion antes del último carácter 
+                e.target.value = valor.slice(0, -1) + "-" + valor.slice(-1);
             }
         });
     }
@@ -314,34 +321,107 @@ document.addEventListener('DOMContentLoaded', () => {
         const rbd = document.getElementById("rbdOculto").value || document.getElementById("RBD").value || "N/A";
         const nombre = document.getElementById("escuelaNombre").value || "N/A";
         const comuna = document.getElementById("comunaOculta").value || "N/A";
-        const nombreEncargadoNivel = document.getElementById("encargadoNivel").value || "N/A";
-        const nombreEncargado = document.getElementById("profesionalRegistra").value || "N/A";
+        const nivel = document.getElementById("nivelEducativo").value || "N/A";
+        const encargadoNivel = document.getElementById("encargadoNivel").value || "N/A";
+        const profesionalRegistra = document.getElementById("profesionalRegistra").value || "N/A";
 
-        // Crear una tabla temporal para exportar (sin la columna de acciones)
-        const data = [
-            ["RESUMEN DE REGISTRO - EDUCACIÓN PARVULARIA"],
-            ["ESTABLECIMIENTO", String(nombre).toUpperCase()],
-            ["RBD", String(rbd).toUpperCase()],
-            ["COMUNA", String(comuna).toUpperCase()],
-            ["ENCARGADO/A DEL NIVEL", String(nombreEncargadoNivel).toUpperCase()],
-            ["ENCARGADO/A DE REGISTRO", String(nombreEncargado).toUpperCase()],
-            ["FECHA DE DESCARGA", new Date().toLocaleString()],
-            [],
-            ["DETALLE DE ESTUDIANTES REGISTRADOS"],
-            ["RUN", "NOMBRES", "APELLIDOS", "F. NAC", "SEXO", "DIAGNÓSTICO", "CONF.", "PROFESIONAL", "REDES", "OBSERVACIONES"]
-        ];
-
-        datos.forEach(r => {
-            data.push([r.run, r.nombre, r.apellido, r.fechaNac, r.sexo, r.diagnostico, r.diagConfirmado, r.profesionalAtiende, r.redes, r.observaciones]);
-        });
+        // 1. Crear un elemento tabla temporal en el DOM (invisible)
+        const table = document.createElement('table');
+        table.style.borderCollapse = 'collapse';
         
-        data.push([]);
-        data.push(["", "", "", "", "", "", "", "", "TOTAL PÁRVULOS:", datos.length]);
+        // 2. Estilo de bordes para las celdas (usaremos una clase o estilo directo)
+        const cellStyle = 'border: 1px solid black; padding: 5px;';
+        const headerStyle = 'border: 1px solid black; padding: 5px; background-color: #f2f2f2; font-weight: bold;';
 
-        const ws = XLSX.utils.aoa_to_sheet(data);
+        let html = `
+            <tr><td colspan="10" style="font-size: 16pt; font-weight: bold; text-align: center;">REGISTRO DE EDUCACIÓN PARVULARIA - ESTUDIO CFT</td></tr>
+            <tr><td colspan="10"></td></tr>
+            <tr>
+                <td colspan="5" style="${headerStyle}">DATOS DE LA INSTITUCIÓN</td>
+                <td colspan="5" style="${headerStyle}">DETALLES DEL REGISTRO</td>
+            </tr>
+            <tr>
+                <td style="${cellStyle} font-weight: bold;">ESTABLECIMIENTO:</td><td colspan="4" style="${cellStyle}">${String(nombre).toUpperCase()}</td>
+                <td style="${cellStyle} font-weight: bold;">FECHA REPORTE:</td><td colspan="4" style="${cellStyle}">${new Date().toLocaleDateString()}</td>
+            </tr>
+            <tr>
+                <td style="${cellStyle} font-weight: bold;">RBD:</td><td colspan="4" style="${cellStyle}">${String(rbd).toUpperCase()}</td>
+                <td style="${cellStyle} font-weight: bold;">NIVEL EDUCATIVO:</td><td colspan="4" style="${cellStyle}">${String(nivel).toUpperCase()}</td>
+            </tr>
+            <tr>
+                <td style="${cellStyle} font-weight: bold;">COMUNA:</td><td colspan="4" style="${cellStyle}">${String(comuna).toUpperCase()}</td>
+                <td style="${cellStyle} font-weight: bold;">ENCARGADO/A NIVEL:</td><td colspan="4" style="${cellStyle}">${String(encargadoNivel).toUpperCase()}</td>
+            </tr>
+            <tr>
+                <td style="${cellStyle} font-weight: bold;">PROFESIONAL REGISTRA:</td><td colspan="9" style="${cellStyle}">${String(profesionalRegistra).toUpperCase()}</td>
+            </tr>
+            <tr><td colspan="10"></td></tr>
+            <tr style="background-color: #f7960d; color: white;">
+                <th style="${headerStyle}">RUN</th>
+                <th style="${headerStyle}">NOMBRES</th>
+                <th style="${headerStyle}">APELLIDOS</th>
+                <th style="${headerStyle}">FECHA NAC.</th>
+                <th style="${headerStyle}">SEXO</th>
+                <th style="${headerStyle}">DIAGNÓSTICO</th>
+                <th style="${headerStyle}">CONF.</th>
+                <th style="${headerStyle}">ESPECIALISTA</th>
+                <th style="${headerStyle}">REDES APOYO</th>
+                <th style="${headerStyle}">OBSERVACIONES</th>
+            </tr>
+        `;
+
+        // 3. Agregar filas de estudiantes
+        datos.forEach(r => {
+            html += `
+                <tr>
+                    <td style="${cellStyle}">${r.run}</td>
+                    <td style="${cellStyle}">${r.nombre}</td>
+                    <td style="${cellStyle}">${r.apellido}</td>
+                    <td style="${cellStyle}">${r.fechaNac}</td>
+                    <td style="${cellStyle}">${r.sexo}</td>
+                    <td style="${cellStyle}">${r.diagnostico}</td>
+                    <td style="${cellStyle}">${r.diagConfirmado}</td>
+                    <td style="${cellStyle}">${r.profesionalAtiende}</td>
+                    <td style="${cellStyle}">${r.redes}</td>
+                    <td style="${cellStyle}">${r.observaciones}</td>
+                </tr>
+            `;
+        });
+
+        // 4. Agregar fila de total
+        html += `
+            <tr><td colspan="10"></td></tr>
+            <tr>
+                <td colspan="8"></td>
+                <td style="${headerStyle}">TOTAL PÁRVULOS:</td>
+                <td style="${headerStyle}">${datos.length}</td>
+            </tr>
+        `;
+
+        table.innerHTML = html;
+
+        // 5. Convertir la tabla HTML a un worksheet de Excel
+        const ws = XLSX.utils.table_to_sheet(table);
+
+        // Ajustar anchos de columna
+        const wscols = [
+            {wch: 15}, // RUN
+            {wch: 22}, // Nombres
+            {wch: 22}, // Apellidos
+            {wch: 15}, // F. Nac
+            {wch: 12}, // Sexo
+            {wch: 30}, // Diagnóstico
+            {wch: 12}, // Confirmado
+            {wch: 25}, // Especialista
+            {wch: 25}, // Redes
+            {wch: 40}  // Observaciones
+        ];
+        ws['!cols'] = wscols;
+
+        // 6. Crear libro y descargar
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Registros");
-        XLSX.writeFile(wb, `${nombreArchivo}.xlsx`);
+        XLSX.utils.book_append_sheet(wb, ws, "Reporte_Parvulo");
+        XLSX.writeFile(wb, `${nombreArchivo}_${rbd}.xlsx`);
     }
 
     document.getElementById('btnExportExcel').addEventListener('click', () => exportarExcel(registros, "Registro_Parvulo"));
